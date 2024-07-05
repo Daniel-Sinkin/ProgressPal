@@ -33,3 +33,33 @@ In total the probabilities are as follows:
 * Rare: 3%
 * Very Rare: 1%
 
+
+#### Details
+##### Journaling
+I think journaling should have a type of magic / wizardry theme, so the currency for this habit are scrolls, every time I complete a morning and evening journal I get a scroll.
+
+Rewards:
+* Common
+    * 1/3: 4 Scrolls
+    * 1/3: 1 Random Elemental Scroll
+        * higher tier scroll, elemental are fire, earth, water, wind, void
+    * 1/3: 1 streak recovery Journaling
+* Uncommon
+    Always: Lore / Worldbuilding
+    * 1/3: Respin + (2 Scrolls | 5 scrolls -> 1 Random Elemental Scroll | 8 Scrolls -> 1 Particular Elemental Scroll)
+    * 1/3: 1 Random Elemental Scroll + (Coinflip to Common -> Uncommon upgrade token)
+    * 1/3: 3 Spins
+* Rare
+    Always unlocks a new theme.
+    * 1/4: Tzeentchian Scroll
+    * 1/2: One Physical Reward of your choice
+    * 1/8: Rare -> VeryRare upgrade Token
+    * 1/8: (Scroll Transfigurement|Select another Rare Reward)
+* VeryRare
+    On first unlock: Moleskin + Pen
+    * Coinflip: Legendary Tzeentchian Artifact
+    * Coinflip: Legendary Arcane Artifact
+    * Coinflip: 10 Scrolls
+    * Coinflip: 3 Random Elemental Scrolls
+    * Pity (no flip hits): 20 Scrolls | 4 Elemental Scrolls + Jesters Hat (Epic item)
+
