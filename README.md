@@ -58,21 +58,59 @@ Rewards:
     * Double Coinflip for a Rare Item
     * Always: Unlock a new theme.
 
-    * 1/4: Tzeentchian Scroll
+    * 1/4: Tzeentchian Scroll, +3 Tzeentch Corruption
     * 1/2: One Physical Reward of your choice
     * 1/8: Rare -> VeryRare upgrade Token
-    * 1/8: (Streak Recovery + Roll for another Rare Reward)
+    * 1/8: Streak Recovery + Roll for another Rare Reward
 * VeryRare
     * On first unlock: Moleskin + Pen
     * (5%) Void rest of Rewards + Jester Hat (Choice disabled after first obtain)
     * Always: Rare Item
     * Always: Double Coinflip for Rare Item
     * Always: Double Coinflip for Uncommon Item
-    * Always: Coinflip for Item (3x)
+    * Always: Coinflip for Common Item (3x)
 
     * 1/3: Legendary Tzeentchian Artifact, +10 Tzeentch Corruption
     * 1/3: Legendary Arcane Artifact, +10 Arcane Corruption
     * 1/3: Legendary Necromantic Artifact, +10 Necromantic Corruption
 
 ##### Physical Activity
-For starters this only contains 
+This should have a type of adventurer / fantasy hero theme going.
+
+Rewards:
+* Common
+    Always: Triple Coinflip for a common item with one optional reroll if you do 10 pushups, +1 Token if hit without reroll if you do pushups
+
+    * 1/3: 4 Bronze Adventurer Tokens
+    * 1/3: 1 Advanced Adventurer Token
+        * Silver Token (96%)
+        * Golden Token (4%)
+    * 1/6: Triple Counflip for an uncommon item with one optional reroll if you do 10 pushups
+    * 1/6: Double Coinflip for an uncommon item with one optional reroll if you do 10 pushups
+* Uncommon:
+    * Always: Lore / Worldbuilding
+    * Always: New Quest / Replace current quest with new one, Coinflip for (bonus quest progress | harder quest with better rewards)
+    * Always: Triple Coinflip for a uncommon item with one optional reroll if you do 10 pushups, +1 Token if hit without reroll if you do pushups
+    * Always: Physical Challenge
+
+    * 1/3: 1x 3C+1RR for Common reward roll + 4 Bronze Adventure Tokens
+    * 1/3: Adventure Token Shop
+    * 1/3: 2x 3C+1RR for Common reward roll
+* Rare: 
+    * Always: Triple Coinflip for a rare item with one optional reroll if you do 10 pushups, +1 Token if hit without reroll if you do pushups
+
+    * 1/4: Khorne Challenge, +3 Khorne Corruption
+    * 1/2: Physical Reward of your choice
+    * 1/8: Rare -> VeryRare Upgrade Token
+    * 1/8: Streak Recovery + Roll for another Rare reward
+* VeryRare:
+    * On first unlock: Physical Reward
+    * (5%) Void rest of Rewards + Jester Hat (Choice disabled after first obtain)
+    * Always: Rare Item
+    * Always: 3Coin+1RR for Rare Item
+    * Always: 3Coin+1RR for Uncommon item
+    * Always: 3x 1Coin for Common Item
+
+    * 1/3: Legendary Khorne Challenge, +10 Khorne Corruption
+    * 1/3: Legendary Champion's Challenge, +10 Fame
+    * 1/3: Legendary Warrior Challenge, +10 Rage
