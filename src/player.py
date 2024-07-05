@@ -1,36 +1,28 @@
 import numpy as np
 
-from .constants import CurrencyDict, Rarity
+from .constants import Rarity
 from .habit_journaling import HabitJournalingMixin
+from .habit_physical import HabitPhysicalMixin
 
 
-class Player(HabitJournalingMixin):
+class Player(HabitJournalingMixin, HabitPhysicalMixin):
     _rng = np.random.default_rng()
 
     def __init__(self, name: str):
         self._name: str = name
         self.on_init()
+        super().on_init()
 
-    def on_init(self):
+    def on_init(self) -> None:
         self._xp: int = 0
-        self._currency: CurrencyDict = CurrencyDict(
-            scroll=0,
-            scroll_fire=0,
-            scroll_earth=0,
-            scroll_water=0,
-            scroll_wind=0,
-            scroll_void=0,
-            adventure_token_bronze=0,
-            adventure_token_silver=0,
-            adventure_token_gold=0,
-            insight=0,
-            insight_eldritch=0,
-        )
+        self._currency: dict[str, int] = {}
         self._streak_recovery = 0
         self._obtained_jester_hat = False
 
-    def pull_rarities(self, n: int = 1) -> Rarity | list[Rarity]:
-        return self._rng.choice(list(Rarity), size=n, p=Rarity.get_ps())
+    def pull_rarities(self, n: int = 1) -> list[Rarity]:
+        return [
+            Rarity(c) for c in self._rng.choice(list(Rarity), size=n, p=Rarity.get_ps())
+        ]
 
     def increase_currency(self, currency: str, amount: int = 1) -> None:
         current_amount = self._currency[currency]
@@ -39,7 +31,7 @@ class Player(HabitJournalingMixin):
 
     def decrease_currency(self, currency: str, amount: int) -> None:
         current_amount = int(self._currency[currency])
-        new_amount = max(0, self._currency[currency] - amount)
+        new_amount: int = max(0, self._currency[currency] - amount)
         print(f"{currency} <- {new_amount} = {current_amount}-{amount}")
         self._currency[currency] += amount
 
@@ -56,12 +48,17 @@ class Player(HabitJournalingMixin):
         if self._currency[currency_remove] < amount_remove:
             return False
 
+        print(
+            "Traded {amount_remove} {currency_remove} for {amount_add} {currency_add}"
+        )
         self.decrease_currency(currency_remove, amount_remove)
         self.increase_currency(currency_add, amount_add)
         return True
 
-    def flip_coins(self, n) -> None:
-        return self._rng.choice(["H", "T"], size=n)
+    def flip_coins(self, n) -> list[str]:
+        result: list[str] = self._rng.choice(["H", "T"], size=n)
+        print(f"Flipped {n} coin(s) and got {result}")
+        return result
 
     def flip_coins_for_heads(self, n) -> bool:
         return all(self.flip_coins(n) == ["H"] * n)
