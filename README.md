@@ -40,26 +40,39 @@ I think journaling should have a type of magic / wizardry theme, so the currency
 
 Rewards:
 * Common
+    Always: Double Coinflip for a common item
+
     * 1/3: 4 Scrolls
     * 1/3: 1 Random Elemental Scroll
-        * higher tier scroll, elemental are fire, earth, water, wind, void
-    * 1/3: 1 streak recovery Journaling
+        * higher tier scroll, elemental are (fire, earth, water, wind) (24%), void (4%)
+    * 1/6: Double Coinflip to Uncommon Item
+    * 1/6: Coinflip to Common item
 * Uncommon
-    Always: Lore / Worldbuilding
-    * 1/3: Respin + (2 Scrolls | 5 scrolls -> 1 Random Elemental Scroll | 8 Scrolls -> 1 Particular Elemental Scroll)
+    * Always: Lore / Worldbuilding
+    * Always: Double Coinflip for an Uncommon Item
+
+    * 1/3: Free Spin + (5 scrolls -> 1 Random Elemental Scroll | 8 Scrolls -> 1 Particular Elemental Scroll | 4 Scrolls)
     * 1/3: 1 Random Elemental Scroll + (Coinflip to Common -> Uncommon upgrade token)
     * 1/3: 3 Spins
 * Rare
-    Always unlocks a new theme.
+    * Double Coinflip for a Rare Item
+    * Always: Unlock a new theme.
+
     * 1/4: Tzeentchian Scroll
     * 1/2: One Physical Reward of your choice
     * 1/8: Rare -> VeryRare upgrade Token
-    * 1/8: (Scroll Transfigurement|Select another Rare Reward)
+    * 1/8: (Streak Recovery + Roll for another Rare Reward)
 * VeryRare
-    On first unlock: Moleskin + Pen
-    * Coinflip: Legendary Tzeentchian Artifact
-    * Coinflip: Legendary Arcane Artifact
-    * Coinflip: 10 Scrolls
-    * Coinflip: 3 Random Elemental Scrolls
-    * Pity (no flip hits): 20 Scrolls | 4 Elemental Scrolls + Jesters Hat (Epic item)
+    * On first unlock: Moleskin + Pen
+    * (5%) Void rest of Rewards + Jester Hat (Choice disabled after first obtain)
+    * Always: Rare Item
+    * Always: Double Coinflip for Rare Item
+    * Always: Double Coinflip for Uncommon Item
+    * Always: Coinflip for Item (3x)
 
+    * 1/3: Legendary Tzeentchian Artifact, +10 Tzeentch Corruption
+    * 1/3: Legendary Arcane Artifact, +10 Arcane Corruption
+    * 1/3: Legendary Necromantic Artifact, +10 Necromantic Corruption
+
+##### Physical Activity
+For starters this only contains 
