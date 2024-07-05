@@ -2,6 +2,11 @@ from dataclasses import dataclass
 
 
 @dataclass
+class DEBUG:
+    SKIP_INPUT: bool = True
+
+
+@dataclass
 class P:
     JESTER_HAT: float = 0.05
     NOTHING: float = 0.5

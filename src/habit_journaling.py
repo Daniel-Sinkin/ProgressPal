@@ -1,4 +1,5 @@
 from .constants import Rarity
+from .parameters import DEBUG
 
 
 class HabitJournalingMixin:
@@ -58,18 +59,24 @@ class HabitJournalingMixin:
                 raise RuntimeError
 
     def _habit_journaling_add_item(self, rarity: Rarity) -> None:
-        print(f"Obtained a journaling item of rarity '{rarity.value}'!")
         self.habit_journaling_undefined_items[rarity.value] += 1
+        print(f"Obtained a journaling item of rarity '{rarity.value}'!")
 
     def _habit_journaling_add_upgrade_token(self, rarity: Rarity) -> None:
-        print(f"Obtained an upgrade token of rarity '{rarity.value}'!")
         self.habit_journaling_undefined_items[rarity.value] += 1
+        print(f"Obtained an upgrade token of rarity '{rarity.value}'!")
 
     def _habit_journaling_add_reward(self, reward: str, n=1) -> None:
+        self.habit_journaling_rewards[reward] += 1
         print(
             f"Obtained {'a' if n == 1 else n} journaling reward{'s' if n > 1 else ''} '{reward}'!"
         )
-        self.habit_journaling_rewards[reward] += 1
+
+    def _habit_journaling_add_corruption(self, corruption: str, n=1) -> None:
+        self.habit_journaling_corruptions[corruption] += n
+        print(
+            f"Your corruption level for '{corruption}' increased by {n}, it's at {self.habit_journaling_corruptions[corruption]} now."
+        )
 
     def _habit_journaling_unlock_moleskin(self) -> None:
         if not self.habit_journaling_obtained_moleskin_reward:
@@ -102,14 +109,14 @@ class HabitJournalingMixin:
             self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
         match self._rng.choice([1, 2, 3]):
             case 1:
-                self._habit_journaling_add_item("legendary_tzeentch")
-                self.habit_journaling_tzeentchian_corruption += 10
+                self._habit_journaling_add_reward("legendary_tzeentch")
+                self._habit_journaling_add_corruption("tzeentchian", 10)
             case 2:
-                self._habit_journaling_add_item("legendary_arcane")
-                self.habit_journaling_arcane_corruption += 10
+                self._habit_journaling_add_reward("legendary_arcane")
+                self._habit_journaling_add_corruption("arcane", 10)
             case 3:
-                self._habit_journaling_add_item("legendary_necromancer")
-                self.habit_journaling_necromancer_corruption += 10
+                self._habit_journaling_add_reward("legendary_necromancer")
+                self._habit_journaling_add_corruption("necromancer", 10)
             case _:
                 raise RuntimeError
 
@@ -137,17 +144,20 @@ class HabitJournalingMixin:
         match choice:
             case 1:
                 self._habit_journaling_flip_coins_for_item(Rarity.Common)
-                input_ = input(
-                    "\n".join(
-                        [
-                            "Choose what reward you want:",
-                            "1.) 5 Scrolls -> 1 random elemental scroll",
-                            "2.) 8 Scrolls -> 1 particular elemental scroll",
-                            "3.) +4 Scrolls",
-                            "",
-                        ]
+                if not DEBUG.SKIP_INPUT:
+                    input_ = input(
+                        "\n".join(
+                            [
+                                "Choose what reward you want:",
+                                "1.) 5 Scrolls -> 1 random elemental scroll",
+                                "2.) 8 Scrolls -> 1 particular elemental scroll",
+                                "3.) +4 Scrolls",
+                                "",
+                            ]
+                        )
                     )
-                )
+                else:
+                    input_ = self._rng.choice([1, 2, 3])
                 try:
                     input_ = int(input_)
                 except ValueError:
@@ -174,9 +184,12 @@ class HabitJournalingMixin:
                 elem_scrolls = [
                     "scroll_" + x for x in ["fire", "earth", "water", "wind", "void"]
                 ]
-                elem_scroll = input(
-                    f"Enter an elemental scroll {'\n'.join(elem_scrolls)}"
-                )
+                if not DEBUG.SKIP_INPUT:
+                    elem_scroll = input(
+                        f"Enter an elemental scroll {'\n'.join(elem_scrolls)}\n"
+                    )
+                else:
+                    elem_scroll = self._rng.choice(elem_scrolls)
                 if elem_scroll not in elem_scrolls:
                     print(
                         f"Invalid input {elem_scroll} for elemental scroll, falling back to 'scroll_fire'"
@@ -193,11 +206,11 @@ class HabitJournalingMixin:
         match choice:
             case 1:
                 self._habit_journaling_add_reward("tzeentchian_scroll")
-                self.habit_journaling_tzeentchian_corruption += 3
+                self._habit_journaling_add_corruption("tzeentchian", 3)
             case 2:
-                self.habit_journaling_undefined_physical_reward += 1
+                self._habit_journaling_add_reward("undefined_physical_reward")
             case 3:
-                self.habit_journaling_upgrade_tokens[Rarity.VeryRare.value] += 1
+                self._habit_journaling_add_upgrade_token(Rarity.VeryRare)
             case 4:
                 self._streak_recovery += 1
                 self._habit_journaling_rare_roll_reward()
