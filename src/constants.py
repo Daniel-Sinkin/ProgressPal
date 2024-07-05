@@ -1,7 +1,8 @@
 from enum import StrEnum, auto
-from typing import TypedDict
 
 import numpy as np
+
+from . import parameters
 
 
 class Rarity(StrEnum):
@@ -52,33 +53,19 @@ class Rarity(StrEnum):
     def p(self) -> float:
         match self:
             case Rarity.Nothing:
-                return 50 / 100
+                return parameters.P.NOTHING
             case Rarity.Common:
-                return 35 / 100
+                return parameters.P.COMMON
             case Rarity.Uncommon:
-                return 11 / 100
+                return parameters.P.UNCOMMON
             case Rarity.Rare:
-                return 3 / 100
+                return parameters.P.RARE
             case Rarity.VeryRare:
-                return 1 / 100
+                return parameters.P.VERY_RARE
 
     @staticmethod
     def get_ps() -> list[float]:
         return [rar.p for rar in Rarity]
 
 
-assert np.isclose(sum([rar.p for rar in Rarity]), 1.0)
-
-
-class CurrencyDict(TypedDict):
-    scroll: int
-    scroll_fire: int
-    scroll_earth: int
-    scroll_water: int
-    scroll_wind: int
-    scroll_void: int
-    adventure_token_bronze: int
-    adventure_token_silver: int
-    adventure_token_gold: int
-    insight: int
-    insight_eldritch: int
+assert np.isclose(sum(Rarity.get_ps()), 1.0)
