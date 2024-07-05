@@ -38,7 +38,7 @@ class Player(HabitJournalingMixin):
         self._currency[currency] += amount
 
     def decrease_currency(self, currency: str, amount: int) -> None:
-        current_amount = self._currency[currency]
+        current_amount = int(self._currency[currency])
         new_amount = max(0, self._currency[currency] - amount)
         print(f"{currency} <- {new_amount} = {current_amount}-{amount}")
         self._currency[currency] += amount
