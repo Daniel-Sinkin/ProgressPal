@@ -6,6 +6,27 @@ class HabitJournalingMixin:
         super().__init__(*args, **kwargs)
         self.on_init_habit_journaling()
 
+    def _habit_journaling_add_item(self, rarity: Rarity) -> None:
+        self.habit_journaling_undefined_items[rarity.value] += 1
+
+    def _habit_journaling_flip_coins_for_item(self, rarity: Rarity, n: int = 1) -> None:
+        if self.flip_coins_for_heads(n):
+            self._habit_journaling_add_item(rarity)
+
+    def _habit_journaling_get_random_elemental_scroll(self) -> str:
+        return str(
+            self._rng.choice(
+                [
+                    "scroll_fire",
+                    "scroll_earth",
+                    "scroll_water",
+                    "scroll_wind",
+                    "scroll_void",
+                ],
+                p=[0.24] * 4 + [0.04],
+            )
+        )
+
     def on_init_habit_journaling(self):
         self.habit_journaling_undefined_items = {rar.value: 0 for rar in Rarity}
         self.habit_journaling_undefined_items.update(
@@ -47,23 +68,42 @@ class HabitJournalingMixin:
                     self._obtained_jester_hat = True
                     return
 
-                self._habit_journaling_flip_coins_for_item(Rarity.VeryRare, 2)
-                self._habit_journaling_add_item(Rarity.Rare)
-                self._habit_journaling_flip_coins_for_item(Rarity.Uncommon)
-                for _ in range(3):
-                    self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
-                match self._rng.choice([1, 2, 3]):
-                    case 1:
-                        self._habit_journaling_add_item("legendary_tzeentch")
-                        self.habit_journaling_tzeentchian_corruption += 10
-                    case 2:
-                        self._habit_journaling_add_item("legendary_arcane")
-                        self.habit_journaling_arcane_corruption += 10
-                    case 3:
-                        self._habit_journaling_add_item("legendary_necromancer")
-                        self.habit_journaling_necromancer_corruption += 10
-                    case _:
-                        raise RuntimeError
+                self._habit_journaling_veryrare_rewards()
+            case _:
+                raise RuntimeError
+
+    def _habit_journaling_veryrare_rewards(self):
+        self._habit_journaling_flip_coins_for_item(Rarity.VeryRare, 2)
+        self._habit_journaling_add_item(Rarity.Rare)
+        self._habit_journaling_flip_coins_for_item(Rarity.Uncommon)
+        for _ in range(3):
+            self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
+        match self._rng.choice([1, 2, 3]):
+            case 1:
+                self._habit_journaling_add_item("legendary_tzeentch")
+                self.habit_journaling_tzeentchian_corruption += 10
+            case 2:
+                self._habit_journaling_add_item("legendary_arcane")
+                self.habit_journaling_arcane_corruption += 10
+            case 3:
+                self._habit_journaling_add_item("legendary_necromancer")
+                self.habit_journaling_necromancer_corruption += 10
+            case _:
+                raise RuntimeError
+
+    def _habit_journaling_common(self):
+        self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
+
+        match self._rng.choice([1, 2, 3, 4], p=[1 / 3, 1 / 3, 1 / 6, 1 / 6]):
+            case 1:
+                self.increase_currency("scroll", 4)
+            case 2:
+                elem_scroll = self._habit_journaling_get_random_elemental_scroll()
+                self.increase_currency(elem_scroll)
+            case 3:
+                self._habit_journaling_flip_coins_for_item(Rarity.Uncommon, 2)
+            case 4:
+                self._habit_journaling_flip_coins_for_item(Rarity.Common)
             case _:
                 raise RuntimeError
 
@@ -122,22 +162,6 @@ class HabitJournalingMixin:
             case _:
                 raise RuntimeError
 
-    def _habit_journaling_common(self):
-        self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
-
-        match self._rng.choice([1, 2, 3, 4], p=[1 / 3, 1 / 3, 1 / 6, 1 / 6]):
-            case 1:
-                self.increase_currency("scroll", 4)
-            case 2:
-                elem_scroll = self._habit_journaling_get_random_elemental_scroll()
-                self.increase_currency(elem_scroll)
-            case 3:
-                self._habit_journaling_flip_coins_for_item(Rarity.Uncommon, 2)
-            case 4:
-                self._habit_journaling_flip_coins_for_item(Rarity.Common)
-            case _:
-                raise RuntimeError
-
     def _habit_journaling_rare_roll_reward(self):
         match self._rng.choice([1, 2, 3, 4], p=[1 / 4, 1 / 2, 1 / 8, 1 / 8]):
             case 1:
@@ -150,24 +174,3 @@ class HabitJournalingMixin:
             case 4:
                 self._streak_recovery += 1
                 self._habit_journaling_rare_roll_reward()
-
-    def _habit_journaling_add_item(self, rarity: Rarity) -> None:
-        self.habit_journaling_undefined_items[rarity.value] += 1
-
-    def _habit_journaling_flip_coins_for_item(self, rarity: Rarity, n: int = 1) -> None:
-        if self.flip_coins_for_heads(n):
-            self._habit_journaling_add_item(rarity)
-
-    def _habit_journaling_get_random_elemental_scroll(self) -> str:
-        return str(
-            self._rng.choice(
-                [
-                    "scroll_fire",
-                    "scroll_earth",
-                    "scroll_water",
-                    "scroll_wind",
-                    "scroll_void",
-                ],
-                p=[0.24] * 4 + [0.04],
-            )
-        )
