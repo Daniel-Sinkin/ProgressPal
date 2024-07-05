@@ -1,5 +1,6 @@
 Will probably migrate this to obsidian, but it's better here for the moment as here I have closer python integration.
 
+### Journaling
 To get things started I'll give myself 5 Journaling spins.
 
 Those spins came out quite lucky!
@@ -36,6 +37,7 @@ I've done my journaling task for today so I'll also get another journaling spin 
 
 I'm using up one of the red vials to drink a coke, it tasted quite good!
 
+### Physical Activity
 Same as before for the journaling I'm giving myself free 5 physical spins.
 * ✅ Nothing
 * ✅ Rare
@@ -56,9 +58,23 @@ Same as before for the journaling I'm giving myself free 5 physical spins.
 Got one roll for finishing physical activity habit as well as 2 bronze adventure tokens as well as 5 exp
 * ✅ Nothing
 
+### Spiritual
+* ✅ Common
+    * Item: THTH
+    * 4 Insight
+* ✅ Nothing
+* ✅ Nothing
+* ✅ Nothing
+* ✅ Common
+    * Item: THHT
+    * 4 Insight
+
+I've finished the meditation task for today so I'll roll once more.
+* ✅ Nothing
+
 # Resources
 Experience: 10
-Habits:
+## Habits:
 * Journaling:
     * Scrolls: 12
     * Elemental Scrolls:
@@ -71,6 +87,7 @@ Habits:
     * Items:
         * Basic Alchemical Kit
             * (2/3) Red Vials
+                * Exchange for coke
 * Physical Activity:
     * Bronze Tokens: 3
     * Siler Tokens: 0
@@ -86,6 +103,11 @@ Habits:
             * ❌ 1
             * ❌ 2
             * Next 2 times you take a walk go into a grocery store and buy something. After the quest is completed you can consume / use both items.
+* Psychonautics:
+    * Insights: 8
+    * Eldritch Insight: 0
+    * Streak Recovery: 0
+    * Items: 0
 
 
 # Lore

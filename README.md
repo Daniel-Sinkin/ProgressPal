@@ -85,8 +85,8 @@ Rewards:
     * 1/3: 1 Advanced Adventurer Token
         * Silver Token (96%)
         * Golden Token (4%)
-    * 1/6: Triple Counflip for an uncommon item with one optional reroll if you do 10 pushups
-    * 1/6: Double Coinflip for an uncommon item with one optional reroll if you do 10 pushups
+    * 1/6: Triple Coinflip for an uncommon item with one optional reroll if you do 10 pushups
+    * 1/6: Double Coinflip for a common item with one optional reroll if you do 10 pushups
 * Uncommon:
     * Always: Lore / Worldbuilding
     * Always: New Quest / Replace current quest with new one, Coinflip for (bonus quest progress | harder quest with better rewards)
@@ -114,3 +114,18 @@ Rewards:
     * 1/3: Legendary Khorne Challenge, +10 Khorne Corruption
     * 1/3: Legendary Champion's Challenge, +10 Fame
     * 1/3: Legendary Warrior Challenge, +10 Rage
+
+##### Psychonautics
+This should be like space explorer theme where I explore my own mind and conscious experience.
+
+Insights represent things like facts, artifacts and the like, anything that gives you a broader understanding of the mind you are exploring.
+* Common
+    * Always: Quadruple Coinflip, get common item on 3, coinflip for uncommon item if you get 4 heads
+
+    * 1/3: 4 Insights
+    * 1/3: 1 Eldrich Insight, +2 Eldritch Corruption
+    * 1/6: Quadruple Coinflip for uncommon item on 3 heads, 1d50 for Very Rare Reward
+    * 1/6: Quadruple Coinflip for common item on 2, 1d50 for Very Rare Reward
+* Uncommon
+* Rare
+* VeryRare
