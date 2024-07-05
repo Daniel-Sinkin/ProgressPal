@@ -51,9 +51,9 @@ Rewards:
     * Always: Lore / Worldbuilding
     * Always: Double Coinflip for an Uncommon Item
 
-    * 1/3: Free Spin + (5 scrolls -> 1 Random Elemental Scroll | 8 Scrolls -> 1 Particular Elemental Scroll | 4 Scrolls)
+    * 1/3: Coinflip for Common Item + (5 scrolls -> 1 Random Elemental Scroll | 8 Scrolls -> 1 Particular Elemental Scroll | 4 Scrolls)
     * 1/3: 1 Random Elemental Scroll + (Coinflip to Common -> Uncommon upgrade token)
-    * 1/3: 3 Spins
+    * 1/3: 2x Coinflips for Common Item
 * Rare
     * Double Coinflip for a Rare Item
     * Always: Unlock a new theme.
@@ -65,10 +65,10 @@ Rewards:
 * VeryRare
     * On first unlock: Moleskin + Pen
     * (5%) Void rest of Rewards + Jester Hat (Choice disabled after first obtain)
+    * Always: Double Coinflip for VeryRare Item
     * Always: Rare Item
-    * Always: Double Coinflip for Rare Item
-    * Always: Double Coinflip for Uncommon Item
-    * Always: Coinflip for Common Item (3x)
+    * Always: Coinflip for Uncommon Item
+    * Always: Double Coinflip for Common Item (3x)
 
     * 1/3: Legendary Tzeentchian Artifact, +10 Tzeentch Corruption
     * 1/3: Legendary Arcane Artifact, +10 Arcane Corruption
