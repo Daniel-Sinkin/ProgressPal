@@ -4,9 +4,19 @@ import time
 import numpy as np
 from colorama import Fore, Style, init
 
-from src.constants import Habit
+from src.constants import Rarity
 from src.player import Player
-from src.util import clear_screen, setup_exit_handling
+from src.util import clear_screen, pulling_sound, setup_exit_handling
+
+
+def count_rarities(choices):
+    flat_choices = choices.flatten()
+    return {
+        "Common": np.sum(flat_choices == "common"),
+        "Uncommon": np.sum(flat_choices == "uncommon"),
+        "Rare": np.sum(flat_choices == "rare"),
+        "VeryRare": np.sum(flat_choices == "veryrare"),
+    }
 
 
 def main() -> None:
@@ -16,10 +26,9 @@ def main() -> None:
     clear_screen()
 
     n_rows, n_cols = 25, 8
-
     rng = np.random.default_rng()
     choices = rng.choice(
-        ["", "common", "uncommon", "rare", "very rare"],
+        ["nothing", "common", "uncommon", "rare", "veryrare"],
         p=[0.5, 0.35, 0.11, 0.03, 0.01],
         size=(n_rows, n_cols),
     )
@@ -32,17 +41,19 @@ def main() -> None:
             print("# ", end="")
             for j in range(n_cols):
                 choice = choices[i, j]
-                if not choice:
+                if choice == "nothing":
                     if (i, j) == highlight_pos:
-                        centered_choice = "." * 12
+                        centered_choice = ". " * 6
                     else:
                         centered_choice = " " * 12
                 else:
-                    centered_choice = f"{choice:^12}"
-
+                    if choice == "veryrare":
+                        centered_choice = "  Very Rare "
+                    else:
+                        centered_choice = f"{choice:^12}".title()
                 if (i, j) == highlight_pos:
                     print(f"{Fore.YELLOW}{centered_choice}{Style.RESET_ALL}", end=" ")
-                elif not choice:
+                elif choice == "nothing":
                     print(f"\033[30m{centered_choice}\033[0m", end=" ")
                 elif choice == "common":
                     print(f"{Fore.WHITE}{centered_choice}{Style.RESET_ALL}", end=" ")
@@ -50,26 +61,48 @@ def main() -> None:
                     print(f"{Fore.GREEN}{centered_choice}{Style.RESET_ALL}", end=" ")
                 elif choice == "rare":
                     print(f"{Fore.BLUE}{centered_choice}{Style.RESET_ALL}", end=" ")
-                elif choice == "very rare":
+                elif choice == "veryrare":
                     print(f"{Fore.MAGENTA}{centered_choice}{Style.RESET_ALL}", end=" ")
             print(" #")
+        print("#", " " * 106, "#", sep="")
         print("#" * 108)
         print()
 
-    all_positions = [(i, j) for i in range(20) for j in range(5)]
+        # Print rarity counts
+        rarity_counts = count_rarities(choices)
+        print(
+            f"{Fore.WHITE}Common: {rarity_counts['Common']}{Style.RESET_ALL} | ", end=""
+        )
+        print(
+            f"{Fore.GREEN}Uncommon: {rarity_counts['Uncommon']}{Style.RESET_ALL} | ",
+            end="",
+        )
+        print(f"{Fore.BLUE}Rare: {rarity_counts['Rare']}{Style.RESET_ALL} | ", end="")
+        print(f"{Fore.MAGENTA}Very Rare: {rarity_counts['VeryRare']}{Style.RESET_ALL}")
+        print()
 
+    all_positions = [(i, j) for i in range(20) for j in range(5)]
     final_choice = None
-    for _ in range(40):
+    for i in range(40):
         highlight_pos = random.choice(all_positions)
         print_choices(highlight_pos)
         final_choice = choices[highlight_pos]
         time.sleep(0.2)
+    pulling_sound.play()
 
-    print("\nReward:")
-    if final_choice:
+    print("\nReward: ", end="")
+    if final_choice != "nothing":
         print(f"{Fore.YELLOW}{final_choice:^12}{Style.RESET_ALL}")
     else:
         print("Nothing 😞")
+    rarity = Rarity(final_choice)
+
+    time.sleep(2.0)
+
+    input("Press Enter to continue...")
+    clear_screen()
+
+    player.habit_physical(rarity=rarity)
 
 
 if __name__ == "__main__":
