@@ -14,14 +14,11 @@ class Player(HabitJournalingMixin, HabitPhysicalMixin):
 
     def __init__(self, name: str):
         self._name: str = name
-        self.on_init()
-        super().on_init()
-
-    def on_init(self) -> None:
         self._xp: int = 0
         self._currency: dict[str, int] = {}
         self._streak_recovery = 0
         self._obtained_jester_hat = False
+        super().__init__()
 
     def __str__(self) -> str:
         return f"Player '{self._name}' has {self._xp} xp and {self._currency}"

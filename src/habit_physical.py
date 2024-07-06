@@ -3,15 +3,15 @@ from .constants import Rarity
 
 
 class HabitPhysicalMixin:
-    def on_init(self) -> None:
+    def __init__(self) -> None:
         self._currency["adventure_token_bronze"] = 0
         self._currency["adventure_token_silver"] = 0
         self._currency["adventure_token_golden"] = 0
-        self.habit_physical_undefined_items = {rar.value: 0 for rar in Rarity}
-        self.habit_physical_upgrade_tokens = {
+        self._habit_physical_undefined_items = {rar.value: 0 for rar in Rarity}
+        self._habit_physical_upgrade_tokens = {
             rar.value: 0 for rar in Rarity if rar != Rarity.VeryRare
         }
-        self.habit_physical_rewards: dict[str, int] = {
+        self._habit_physical_rewards: dict[str, int] = {
             "undefined_lores": 0,
             "undefined_physical_reward": 0,
             "legendary_khorne": 0,
@@ -19,13 +19,14 @@ class HabitPhysicalMixin:
             "legendary_warrior": 0,
         }
 
-        self.habit_physical_corruptions = {
+        self._habit_physical_corruptions = {
             "khorne": 0,
             "primal": 0,
-            "insanity": 0,
+            "despair": 0,
         }
 
-        self.habit_physical_obtained_epic_reward = False
+        self._habit_physical_has_obtained_epic_reward = False
+        super().__init__()
 
     def habit_physical(self, rarity: Rarity) -> None:
         match rarity:
@@ -38,7 +39,7 @@ class HabitPhysicalMixin:
             case Rarity.Rare:
                 self._habit_physical_rare()
             case Rarity.VeryRare:
-                self._habit_physical_obtained_epic_reward()
+                self._habit_physical_obtain_epic_reward()
 
                 p_jester = parameters.P.JESTER_HAT
                 if not self._obtained_jester_hat and self._rng.choice(
@@ -51,7 +52,7 @@ class HabitPhysicalMixin:
             case _:
                 raise RuntimeError
 
-    def _habit_physical_uncommon(self):
+    def _habit_physical_uncommon(self) -> None:
         self._habit_physical_add_reward("undefined_lores")
         self._habit_physical_quest_event()
         self._habit_physical_flip_coins_for_item(Rarity.Uncommon, 2)
@@ -70,7 +71,7 @@ class HabitPhysicalMixin:
             case _:
                 raise RuntimeError
 
-    def _habit_physical_common(self):
+    def _habit_physical_common(self) -> None:
         self._habit_physical_flip_coins_for_item(Rarity.Common, 2)
 
         choice = int(self._rng.choice([1, 2, 3, 4], p=[1 / 3, 1 / 3, 1 / 6, 1 / 6]))
@@ -92,7 +93,7 @@ class HabitPhysicalMixin:
             case _:
                 raise RuntimeError
 
-    def _habit_physical_rare(self):
+    def _habit_physical_rare(self) -> None:
         choice = int(self._rng.choice([1, 2, 3, 4], p=[1 / 4, 1 / 2, 1 / 8, 1 / 8]))
         match choice:
             case 1:
@@ -101,7 +102,7 @@ class HabitPhysicalMixin:
             case 2:
                 self._habit_physical_add_reward("undefined_physical_reward")
             case 3:
-                self.habit_physical_upgrade_tokens(Rarity.Rare)
+                self._habit_physical_upgrade_tokens(Rarity.Rare)
             case 4:
                 self._streak_recovery += 1
                 self._habit_physical_rare()
@@ -119,36 +120,37 @@ class HabitPhysicalMixin:
         match choice:
             case 1:
                 self._habit_physical_add_reward("legendary_khorne")
-                self._habit_physical_add_corruption("khrone", 10)
+                self._habit_physical_add_corruption("khorne", 10)
             case 2:
                 self._habit_physical_add_reward("legendary_champion")
-                self._habit_physical_add_corruption("champion", 10)
+                self._habit_physical_add_corruption("primal", 10)
             case 3:
                 self._habit_physical_add_reward("legendary_warrior")
-                self._habit_physical_add_corruption("warrior", 10)
+                self._habit_physical_add_corruption("despair", 10)
             case _:
                 raise RuntimeError
 
     def _habit_physical_flip_coins_for_item(self, rarity: Rarity, n: int = 1) -> None:
+        print("Flipping for item...")
         if self.flip_coins_for_heads(n):
             self._habit_physical_add_item(rarity)
 
     def _habit_physical_add_item(self, rarity: Rarity) -> None:
-        self.habit_physical_undefined_items[rarity.value] += 1
+        self._habit_physical_undefined_items[rarity.value] += 1
         print(f"Obtained a physical item of rarity '{rarity.value}'!")
 
     def _habit_physical_add_upgrade_token(self, rarity: Rarity) -> None:
-        self.habit_physical_undefined_items[rarity.value] += 1
+        self._habit_physical_undefined_items[rarity.value] += 1
         print(f"Obtained an upgrade token of rarity '{rarity.value}'!")
 
     def _habit_physical_add_reward(self, reward: str, n=1) -> None:
-        self.habit_physical_rewards[reward] += 1
+        self._habit_physical_rewards[reward] += 1
         print(
             f"Obtained {'a' if n == 1 else n} physical reward{'s' if n > 1 else ''} '{reward}'!"
         )
 
     def _habit_physical_add_corruption(self, corruption: str, n=1) -> None:
-        self.habit_physical_corruptions[corruption] += n
+        self._habit_physical_corruptions[corruption] += n
         print(f"Obtained {n} corruption{'s' if n > 1 else ''} of type '{corruption}'!")
 
     def _habit_physical_quest_event(self) -> None:
@@ -163,7 +165,7 @@ class HabitPhysicalMixin:
     def _habit_physical_khorne_challenge(self) -> None:
         print("_habit_physical_khorne_challenge is not implemented yet.")
 
-    def _habit_physical_obtained_epic_reward(self) -> None:
-        if not self.habit_physical_obtained_epic_reward:
-            self.habit_physical_obtained_epic_reward = True
+    def _habit_physical_obtain_epic_reward(self) -> None:
+        if not self._habit_physical_obtain_epic_reward:
+            self._habit_physical_has_obtained_epic_reward = True
             print("Obtained an epic physical reward!")

@@ -4,7 +4,7 @@ from .parameters import DEBUG
 
 
 class HabitJournalingMixin:
-    def on_init(self) -> None:
+    def __init__(self) -> None:
         self._currency["scroll"] = 0
         self._currency["scroll_fire"] = 0
         self._currency["scroll_earth"] = 0
@@ -35,6 +35,7 @@ class HabitJournalingMixin:
         }
 
         self.habit_journaling_obtained_moleskin_reward = False
+        super().__init__()
 
     def habit_journaling(self, rarity: Rarity) -> None:
         match rarity:
