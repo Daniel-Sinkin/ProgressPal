@@ -17,3 +17,5 @@ mono_crash.*.json
 __pycache__/
 
 .DS_Store
+
+*.wav
