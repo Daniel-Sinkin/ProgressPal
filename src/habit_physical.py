@@ -48,7 +48,6 @@ class HabitPhysicalMixin:
                     self._obtained_jester_hat = True
                 else:
                     self._habit_physical_veryrare_rewards()
-
             case _:
                 raise RuntimeError
 

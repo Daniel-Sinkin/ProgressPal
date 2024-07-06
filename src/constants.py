@@ -5,6 +5,11 @@ import numpy as np
 from . import parameters
 
 
+class Habit(StrEnum):
+    Journaling = auto()
+    Physical = auto()
+
+
 class Rarity(StrEnum):
     Nothing = auto()
     Common = auto()
