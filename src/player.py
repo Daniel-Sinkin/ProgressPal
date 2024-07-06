@@ -3,9 +3,10 @@ import ujson as json
 
 from .constants import Rarity
 from .habit_journaling import HabitJournalingMixin
+from .habit_physical import HabitPhysicalMixin
 
 
-class Player(HabitJournalingMixin):
+class Player(HabitJournalingMixin, HabitPhysicalMixin):
     _rng = np.random.default_rng()
 
     def __init__(self, name: str):
@@ -24,6 +25,11 @@ class Player(HabitJournalingMixin):
 
     def __repr__(self) -> str:
         return self.__str__()
+
+    def save(self) -> None:
+        print("Saving player data...")
+        with open(f"player_{self._name}.json", "w") as f:
+            f.write(self.to_json())
 
     def serialize(self) -> dict[str, any]:
         player_data = {
@@ -77,8 +83,8 @@ class Player(HabitJournalingMixin):
 
         return player
 
-    def to_json(self) -> str:
-        return json.dumps(self.serialize())
+    def to_json(self, indent=4) -> str:
+        return json.dumps(self.serialize(), indent=indent)
 
     @classmethod
     def from_json(cls, json_str: str) -> "Player":
