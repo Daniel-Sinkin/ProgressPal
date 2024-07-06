@@ -14,19 +14,15 @@ class HabitPhysicalMixin:
         self.habit_physical_rewards: dict[str, int] = {
             "undefined_lores": 0,
             "undefined_physical_reward": 0,
-            "tzeentchian_scroll": 0,
-            "tzeentchian_corruption": 0,
-            "arcane_corruption": 0,
-            "necromancer_corruption": 0,
-            "legendary_khrone": 0,
+            "legendary_khorne": 0,
             "legendary_champion": 0,
             "legendary_warrior": 0,
         }
 
         self.habit_physical_corruptions = {
             "khorne": 0,
-            "fame": 0,
-            "rage": 0,
+            "primal": 0,
+            "insanity": 0,
         }
 
         self.habit_physical_obtained_epic_reward = False
@@ -76,7 +72,7 @@ class HabitPhysicalMixin:
                 raise RuntimeError
 
     def _habit_physical_common(self):
-        self._habit_journaling_flip_coins_for_item(Rarity.Common, 2)
+        self._habit_physical_flip_coins_for_item(Rarity.Common, 2)
 
         choice = int(self._rng.choice([1, 2, 3, 4], p=[1 / 3, 1 / 3, 1 / 6, 1 / 6]))
         match choice:
@@ -102,7 +98,7 @@ class HabitPhysicalMixin:
         match choice:
             case 1:
                 self._habit_physical_khorne_challenge()
-                self._habit_journaling_add_corruption("khorne", 3)
+                self._habit_physical_add_corruption("khorne", 3)
             case 2:
                 self._habit_physical_add_reward("undefined_physical_reward")
             case 3:
@@ -123,14 +119,14 @@ class HabitPhysicalMixin:
         choice = int(self._rng.choice([1, 2, 3]))
         match choice:
             case 1:
-                self._habit_journaling_add_reward("legendary_khorne")
-                self._habit_journaling_add_corruption("khrone", 10)
+                self._habit_physical_add_reward("legendary_khorne")
+                self._habit_physical_add_corruption("khrone", 10)
             case 2:
-                self._habit_journaling_add_reward("legendary_champion")
-                self._habit_journaling_add_corruption("champion", 10)
+                self._habit_physical_add_reward("legendary_champion")
+                self._habit_physical_add_corruption("champion", 10)
             case 3:
-                self._habit_journaling_add_reward("legendary_warrior")
-                self._habit_journaling_add_corruption("warrior", 10)
+                self._habit_physical_add_reward("legendary_warrior")
+                self._habit_physical_add_corruption("warrior", 10)
             case _:
                 raise RuntimeError
 
@@ -151,6 +147,10 @@ class HabitPhysicalMixin:
         print(
             f"Obtained {'a' if n == 1 else n} physical reward{'s' if n > 1 else ''} '{reward}'!"
         )
+
+    def _habit_physical_add_corruption(self, corruption: str, n=1) -> None:
+        self.habit_physical_corruptions[corruption] += n
+        print(f"Obtained {n} corruption{'s' if n > 1 else ''} of type '{corruption}'!")
 
     def _habit_physical_quest_event(self) -> None:
         print("_habit_physical_quest_event is not implemented yet.")

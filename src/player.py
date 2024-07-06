@@ -56,8 +56,6 @@ class Player(HabitJournalingMixin, HabitPhysicalMixin):
             "corruptions": self.habit_journaling_corruptions,
             "obtained_moleskin_reward": self.habit_journaling_obtained_moleskin_reward,
         }
-
-        # Add HabitJournalingMixin data to player_data
         player_data["habit_journaling"] = habit_journaling_data
 
         return player_data
@@ -88,7 +86,7 @@ class Player(HabitJournalingMixin, HabitPhysicalMixin):
 
     @classmethod
     def from_json(cls, json_str: str) -> "Player":
-        data = json.loads(json_str)
+        data: dict[str, any] = json.loads(json_str)
         return cls.deserialize(data)
 
     def pull_rarities(self, n: int = 1) -> list[Rarity]:
