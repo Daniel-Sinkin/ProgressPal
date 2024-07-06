@@ -1,4 +1,6 @@
+import atexit
 import os
+import signal
 import sys
 import time
 from contextlib import contextmanager
@@ -19,6 +21,16 @@ def clear_screen():
         _ = os.system("clear")
 
 
+def exit_handler(player: Player) -> None:
+    player.save()
+
+
+def setup_exit_handling(player: Player) -> None:
+    atexit.register(exit_handler, player)
+    signal.signal(signal.SIGINT, lambda s, f: exit(0))
+    signal.signal(signal.SIGTERM, lambda s, f: exit(0))
+
+
 @contextmanager
 def indented_print(indent="\t"):
     original_stdout = sys.stdout
@@ -32,18 +44,17 @@ def indented_print(indent="\t"):
         input()
 
 
-def play_sound(sound_file):
-    pygame.mixer.init()
-    sound = pygame.mixer.Sound(sound_file)
-    sound.set_volume(0.3)
-    sound.play()
+pygame.mixer.init()
+pulling_sound = pygame.mixer.Sound("data/pulled_rarity.wav")
+pulling_sound.set_volume(0.3)
 
 
 def main():
     clear_screen()
     player = Player("Daniel")
-    n_pulls = 5
+    setup_exit_handling(player)
 
+    n_pulls = 5
     for i, rarity in enumerate(player.pull_rarities(n_pulls)):
         n_dots_max = 50
         for n_dots in range(n_dots_max):
@@ -54,11 +65,10 @@ def main():
                 "+++" if n_dots & 1 == 0 else "---",
                 end="\r",
             )
+            if n_dots == (9 * n_dots_max) // 10:
+                pulling_sound.play()
         clear_screen()
         print(f"Pulled '{rarity.prettify()}' ({i + 1} / {n_pulls})", end="")
-
-        # Play sound after pulling rarity
-        play_sound("data/pulled_rarity.wav")
 
         input()
         if rarity != "nothing":
