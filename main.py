@@ -54,7 +54,7 @@ def main():
     player = Player("Daniel")
     setup_exit_handling(player)
 
-    n_pulls = 5
+    n_pulls = 1
     for i, rarity in enumerate(player.pull_rarities(n_pulls)):
         n_dots_max = 50
         for n_dots in range(n_dots_max):

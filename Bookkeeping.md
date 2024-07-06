@@ -37,6 +37,8 @@ I've done my journaling task for today so I'll also get another journaling spin 
 
 I'm using up one of the red vials to drink a coke, it tasted quite good!
 
+Used up the remainding two red vials, so I have no more left.
+
 ### Physical Activity
 Same as before for the journaling I'm giving myself free 5 physical spins.
 * ✅ Nothing
@@ -72,6 +74,8 @@ Got one roll for finishing physical activity habit as well as 2 bronze adventure
 I've finished the meditation task for today so I'll roll once more.
 * ✅ Nothing
 
+Finished Physical habit for the day, rolled and got a `Rare` result!
+
 # Resources
 Experience: 10
 ## Habits:
@@ -86,8 +90,7 @@ Experience: 10
     * Streak Recovery: 1
     * Items:
         * Basic Alchemical Kit
-            * (2/3) Red Vials
-                * Exchange for coke
+            * (0/3) Red Vials
 * Physical Activity:
     * Bronze Tokens: 3
     * Siler Tokens: 0
@@ -108,7 +111,6 @@ Experience: 10
     * Eldritch Insight: 0
     * Streak Recovery: 0
     * Items: 0
-
 
 # Lore
 ## Journaling
