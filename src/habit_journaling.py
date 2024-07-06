@@ -1,3 +1,4 @@
+from . import parameters
 from .constants import Rarity
 from .parameters import DEBUG
 
@@ -49,8 +50,10 @@ class HabitJournalingMixin:
                 self._habit_journaling_rare_roll_reward()
             case Rarity.VeryRare:
                 self._habit_journaling_unlock_moleskin()
+                p_jester = parameters.P.JESTER_HAT
                 if not self._obtained_jester_hat and self._rng.choice(
-                    [True, False], p=[0.05, 0.95]
+                    [True, False],
+                    p=[p_jester, 1 - p_jester],
                 ):
                     self._obtained_jester_hat = True
                 else:
@@ -214,3 +217,5 @@ class HabitJournalingMixin:
             case 4:
                 self._streak_recovery += 1
                 self._habit_journaling_rare_roll_reward()
+            case _:
+                raise RuntimeError

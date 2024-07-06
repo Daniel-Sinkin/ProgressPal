@@ -67,12 +67,8 @@ class Player(HabitJournalingMixin):
         # Deserialize HabitJournalingMixin data
         hj_data = data["habit_journaling"]
         player._currency.update(hj_data["currency"])
-        player.habit_journaling_undefined_items = {
-            int(k): v for k, v in hj_data["undefined_items"].items()
-        }
-        player.habit_journaling_upgrade_tokens = {
-            int(k): v for k, v in hj_data["upgrade_tokens"].items()
-        }
+        player.habit_journaling_undefined_items = hj_data["undefined_items"]
+        player.habit_journaling_upgrade_tokens = hj_data["upgrade_tokens"]
         player.habit_journaling_rewards = hj_data["rewards"]
         player.habit_journaling_corruptions = hj_data["corruptions"]
         player.habit_journaling_obtained_moleskin_reward = hj_data[
@@ -131,7 +127,10 @@ class Player(HabitJournalingMixin):
 
     def flip_coins(self, n: int = 1) -> list[str]:
         result: list[str] = self._rng.choice(["H", "T"], size=n)
-        print(f"Flipped {n} coin(s) and got {result}")
+        if n == 1:
+            print(f"Flipped a coin and got {result}.")
+        else:
+            print(f"Flipped {n} coins and got {result}.")
         return result
 
     def flip_coins_for_heads(self, n: int = 1) -> bool:
