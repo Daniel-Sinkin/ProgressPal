@@ -1,85 +1,75 @@
-import atexit
-import os
-import signal
-import sys
+import random
 import time
-from contextlib import contextmanager
-from io import StringIO
 
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
-import pygame
+import numpy as np
+from colorama import Fore, Style, init
 
+from src.constants import Habit
 from src.player import Player
+from src.util import clear_screen, setup_exit_handling
 
 
-def clear_screen():
-    # For Windows
-    if os.name == "nt":
-        _ = os.system("cls")
-    # For Mac and Linux
-    else:
-        _ = os.system("clear")
-
-
-def exit_handler(player: Player) -> None:
-    player.save()
-
-
-def setup_exit_handling(player: Player) -> None:
-    atexit.register(exit_handler, player)
-    signal.signal(signal.SIGINT, lambda s, f: exit(0))
-    signal.signal(signal.SIGTERM, lambda s, f: exit(0))
-
-
-@contextmanager
-def indented_print(indent="\t"):
-    original_stdout = sys.stdout
-    string_io = StringIO()
-    sys.stdout = string_io
-    yield
-    printed_text = string_io.getvalue()
-    sys.stdout = original_stdout
-    for line in printed_text.splitlines():
-        print(indent + line, end="")
-        input()
-
-
-pygame.mixer.init()
-pulling_sound = pygame.mixer.Sound("data/pulled_rarity.wav")
-pulling_sound.set_volume(0.3)
-
-
-def main():
-    clear_screen()
+def main() -> None:
+    init()
     player = Player("Daniel")
     setup_exit_handling(player)
+    clear_screen()
 
-    n_pulls = 1
-    for i, rarity in enumerate(player.pull_rarities(n_pulls)):
-        n_dots_max = 50
-        for n_dots in range(n_dots_max):
-            time.sleep(max(0.25 - 0.005 * (n_dots + 2), 0.025))
-            print(
-                "+++" if n_dots & 1 == 0 else "---",
-                "." * n_dots + " " * (n_dots_max - n_dots - 1) + "|",
-                "+++" if n_dots & 1 == 0 else "---",
-                end="\r",
-            )
-            if n_dots == (9 * n_dots_max) // 10:
-                pulling_sound.play()
+    n_rows, n_cols = 25, 8
+
+    rng = np.random.default_rng()
+    choices = rng.choice(
+        ["", "common", "uncommon", "rare", "very rare"],
+        p=[0.5, 0.35, 0.11, 0.03, 0.01],
+        size=(n_rows, n_cols),
+    )
+
+    def print_choices(highlight_pos=None):
         clear_screen()
-        print(f"Pulled '{rarity.prettify()}' ({i + 1} / {n_pulls})", end="")
+        print("#" * 108)
+        print("#", " " * 106, "#", sep="")
+        for i in range(n_rows):
+            print("# ", end="")
+            for j in range(n_cols):
+                choice = choices[i, j]
+                if not choice:
+                    if (i, j) == highlight_pos:
+                        centered_choice = "." * 12
+                    else:
+                        centered_choice = " " * 12
+                else:
+                    centered_choice = f"{choice:^12}"
 
-        input()
-        if rarity != "nothing":
-            with indented_print():
-                player.habit_journaling(rarity)
-            input("\nFinished iteration. Press enter to continue...")
-        clear_screen()
+                if (i, j) == highlight_pos:
+                    print(f"{Fore.YELLOW}{centered_choice}{Style.RESET_ALL}", end=" ")
+                elif not choice:
+                    print(f"\033[30m{centered_choice}\033[0m", end=" ")
+                elif choice == "common":
+                    print(f"{Fore.WHITE}{centered_choice}{Style.RESET_ALL}", end=" ")
+                elif choice == "uncommon":
+                    print(f"{Fore.GREEN}{centered_choice}{Style.RESET_ALL}", end=" ")
+                elif choice == "rare":
+                    print(f"{Fore.BLUE}{centered_choice}{Style.RESET_ALL}", end=" ")
+                elif choice == "very rare":
+                    print(f"{Fore.MAGENTA}{centered_choice}{Style.RESET_ALL}", end=" ")
+            print(" #")
+        print("#" * 108)
+        print()
 
-    serialized_data = player.serialize()
-    json_data = player.to_json()
-    new_player = Player.deserialize(serialized_data)
+    all_positions = [(i, j) for i in range(20) for j in range(5)]
+
+    final_choice = None
+    for _ in range(40):
+        highlight_pos = random.choice(all_positions)
+        print_choices(highlight_pos)
+        final_choice = choices[highlight_pos]
+        time.sleep(0.2)
+
+    print("\nReward:")
+    if final_choice:
+        print(f"{Fore.YELLOW}{final_choice:^12}{Style.RESET_ALL}")
+    else:
+        print("Nothing 😞")
 
 
 if __name__ == "__main__":

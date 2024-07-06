@@ -1,1 +1,55 @@
-{"name":"Daniel","xp":0,"currency":{"scroll":0,"scroll_fire":0,"scroll_earth":0,"scroll_water":0,"scroll_wind":0,"scroll_void":0},"streak_recovery":0,"obtained_jester_hat":false,"habit_journaling":{"currency":{"scroll":0,"scroll_fire":0,"scroll_earth":0,"scroll_water":0,"scroll_wind":0,"scroll_void":0},"undefined_items":{"nothing":0,"common":0,"uncommon":0,"rare":0,"veryrare":0},"upgrade_tokens":{"nothing":0,"common":0,"uncommon":0,"rare":0},"rewards":{"undefined_lores":0,"undefined_themes":0,"undefined_physical_reward":0,"tzeentchian_scroll":0,"tzeentchian_corruption":0,"arcane_corruption":0,"necromancer_corruption":0,"legendary_tzeentch":0,"legendary_arcane":0,"legendary_necromancer":0},"corruptions":{"tzeentchian":0,"arcane":0,"necromancer":0},"obtained_moleskin_reward":false}}
+{
+    "name": "Daniel",
+    "xp": 0,
+    "currency": {
+        "scroll": 0,
+        "scroll_fire": 0,
+        "scroll_earth": 0,
+        "scroll_water": 0,
+        "scroll_wind": 0,
+        "scroll_void": 0
+    },
+    "streak_recovery": 0,
+    "obtained_jester_hat": false,
+    "habit_journaling": {
+        "currency": {
+            "scroll": 0,
+            "scroll_fire": 0,
+            "scroll_earth": 0,
+            "scroll_water": 0,
+            "scroll_wind": 0,
+            "scroll_void": 0
+        },
+        "undefined_items": {
+            "nothing": 0,
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0,
+            "veryrare": 0
+        },
+        "upgrade_tokens": {
+            "nothing": 0,
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0
+        },
+        "rewards": {
+            "undefined_lores": 0,
+            "undefined_themes": 0,
+            "undefined_physical_reward": 0,
+            "tzeentchian_scroll": 0,
+            "tzeentchian_corruption": 0,
+            "arcane_corruption": 0,
+            "necromancer_corruption": 0,
+            "legendary_tzeentch": 0,
+            "legendary_arcane": 0,
+            "legendary_necromancer": 0
+        },
+        "corruptions": {
+            "tzeentchian": 0,
+            "arcane": 0,
+            "necromancer": 0
+        },
+        "obtained_moleskin_reward": false
+    }
+}

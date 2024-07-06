@@ -97,8 +97,13 @@ class Player(HabitJournalingMixin, HabitPhysicalMixin):
             Rarity(c) for c in self._rng.choice(list(Rarity), size=n, p=Rarity.get_ps())
         ]
 
-    def complete_habit(self, habit: Habit) -> None:
+    def complete_habit(self, habit: Habit | str) -> None:
+        print(f"🌟🌟🌟 Congratulation you completed a {habit} task! 🌟🌟🌟")
+        if isinstance(habit, str):
+            habit = Habit(habit)
+
         self.increase_xp(10)
+        input("Press Enter to pull for a rarity...")
 
         n_dots_max = 50
         for n_dots in range(n_dots_max):
