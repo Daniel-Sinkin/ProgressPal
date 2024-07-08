@@ -106,9 +106,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # main()
-    init()
-    player = Player("Daniel")
-    setup_exit_handling(player)
-    clear_screen()
-    player.habit_physical(rarity=Rarity.Uncommon)
+    main()
+    # init()
+    # player = Player("Daniel")
+    # setup_exit_handling(player)
+    # clear_screen()
+    # player.habit_physical(rarity=Rarity.Uncommon)

@@ -7,7 +7,10 @@
         "scroll_earth": 0,
         "scroll_water": 0,
         "scroll_wind": 0,
-        "scroll_void": 0
+        "scroll_void": 0,
+        "adventure_token_bronze": 0,
+        "adventure_token_silver": 0,
+        "adventure_token_golden": 0
     },
     "streak_recovery": 0,
     "obtained_jester_hat": false,
