@@ -30,6 +30,11 @@ def main() -> None:
     setup_exit_handling(player)
     clear_screen()
 
+    rarity = pull_rarity()
+    player.habit_physical(rarity=rarity)
+
+
+def pull_rarity():
     n_rows, n_cols = 25, 8
     rng = np.random.default_rng()
     choices = rng.choice(
@@ -106,8 +111,7 @@ def main() -> None:
 
     input("Press Enter to continue...")
     clear_screen()
-
-    player.habit_physical(rarity=rarity)
+    return rarity
 
 
 if __name__ == "__main__":
