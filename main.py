@@ -1,27 +1,32 @@
 import random
 import time
+from typing import TypeAlias
 
+import colorama
 import numpy as np
-from colorama import Fore, Style, init
+from colorama import Fore, Style
 
 from src.constants import Rarity
 from src.player import Player
 from src.util import clear_screen, pulling_sound, setup_exit_handling
 
+GRIDPOS: TypeAlias = tuple[int, int]
 
-def count_rarities(choices):
+
+def count_rarities(choices) -> dict[str, int]:
     flat_choices = choices.flatten()
     return {
-        "Common": np.sum(flat_choices == "common"),
-        "Uncommon": np.sum(flat_choices == "uncommon"),
-        "Rare": np.sum(flat_choices == "rare"),
-        "VeryRare": np.sum(flat_choices == "veryrare"),
+        "Common": int(np.sum(flat_choices == "common")),
+        "Uncommon": int(np.sum(flat_choices == "uncommon")),
+        "Rare": int(np.sum(flat_choices == "rare")),
+        "VeryRare": int(np.sum(flat_choices == "veryrare")),
     }
 
 
 def main() -> None:
-    init()
+    colorama.init()
     player = Player("Daniel")
+    # TODO: Shouldn't this be inside of the player `__init­­__` method?
     setup_exit_handling(player)
     clear_screen()
 
@@ -81,7 +86,7 @@ def main() -> None:
         print(f"{Fore.MAGENTA}Very Rare: {rarity_counts['VeryRare']}{Style.RESET_ALL}")
         print()
 
-    all_positions = [(i, j) for i in range(20) for j in range(5)]
+    all_positions: list[GRIDPOS] = [(i, j) for i in range(20) for j in range(5)]
     final_choice = None
     for i in range(40):
         highlight_pos = random.choice(all_positions)
